@@ -124,7 +124,6 @@ Example name:
 ```
 my-terraform-state-bucket
 ```
-
 ---
 
 ### 2️⃣ DynamoDB Table (State Locking)
@@ -149,6 +148,7 @@ terraform {
     encrypt        = true
   }
 }
+```
 
 ---
 
