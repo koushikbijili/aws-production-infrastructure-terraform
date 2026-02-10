@@ -1,2 +1,199 @@
-# aws-production-infrastructure-terraform
-Production-ready AWS infrastructure built with Terraform — including ALB, Auto Scaling Group, Launch Templates, IAM roles, ACM, and remote state management using S3 and DynamoDB locking.
+# 🚀 Production-Grade AWS Architecture with Terraform
+
+## 📌 Overview
+
+This project provisions a production-style AWS infrastructure using **Terraform**.
+It deploys highly available, private EC2 instances behind an **Application Load Balancer (ALB)** with **HTTPS termination via AWS ACM**.
+
+The infrastructure is built with security, scalability, and automation principles in mind.
+
+---
+
+## 🏗 Architecture Summary
+
+The infrastructure includes:
+
+* **VPC** with public and private subnets across 2 Availability Zones
+* **Internet Gateway** for inbound traffic
+* **NAT Gateway** for outbound internet access from private subnets
+* **Application Load Balancer (ALB)** (internet-facing)
+* **ACM SSL Certificate** for HTTPS
+* **Auto Scaling Group (ASG)** in private subnets
+* **SSM Session Manager** for secure instance access (no SSH exposure)
+* **Terraform Remote Backend (S3 + DynamoDB state locking)**
+
+---
+
+## 🌐 Traffic Flow
+
+```
+User
+ ↓
+DNS (Cloudflare or Route53)
+ ↓
+Application Load Balancer (HTTPS via ACM)
+ ↓
+Target Group
+ ↓
+Auto Scaling Group
+ ↓
+Private EC2 Instances
+ ↓
+Nginx Web Server
+```
+
+---
+
+## 🔐 Security Design Decisions
+
+### 1️⃣ Private EC2 Instances
+
+Application servers are deployed in **private subnets** to prevent direct internet exposure.
+
+### 2️⃣ No SSH Access
+
+No port 22 is exposed. Access is managed using **AWS SSM Session Manager**, reducing attack surface.
+
+### 3️⃣ SSL Termination at ALB
+
+HTTPS is terminated at the ALB using **ACM-managed certificates**, centralizing certificate management.
+
+### 4️⃣ Controlled Inbound Rules
+
+* ALB Security Group allows ports 80 and 443 from the internet.
+* EC2 Security Group allows traffic only from ALB Security Group.
+
+---
+
+## 📈 High Availability & Scaling
+
+* Multi-AZ deployment (2 Availability Zones)
+* Auto Scaling Group maintains minimum desired capacity
+* ALB performs health checks
+* Failed instances are automatically replaced
+
+---
+
+## 🧱 Terraform Structure
+
+```
+production-aws-architecture/
+│
+├── terraform/
+│   ├── acm.tf
+│   ├── alb.tf
+│   ├── asg.tf
+│   ├── backend.tf
+│   ├── iam.tf
+│   ├── launch_template.tf
+│   ├── main.tf
+│   ├── outputs.tf
+│   ├── provider.tf
+│   └── security.tf
+│
+├── README.md
+└── architecture-diagram.png
+```
+
+---
+
+## 🗂 Remote State Management
+
+Terraform state is stored remotely using:
+
+* **S3 Bucket** (state storage)
+* **DynamoDB Table** (state locking)
+
+This prevents concurrent state corruption.
+
+---
+
+## 🚀 Deployment Steps
+
+### 1️⃣ Initialize Terraform
+
+```
+cd terraform
+terraform init
+```
+
+### 2️⃣ Review Plan
+
+```
+terraform plan
+```
+
+### 3️⃣ Deploy Infrastructure
+
+```
+terraform apply
+```
+
+### 4️⃣ Access Application
+
+After deployment, retrieve the ALB DNS:
+
+```
+terraform output alb_dns_name
+```
+
+Example:
+
+```
+https://example.com
+```
+
+---
+
+## 🧪 Testing
+
+* Confirm ALB listener on ports 80 and 443
+* Verify HTTP redirects to HTTPS
+* Validate Target Group health status
+* Confirm EC2 access via SSM
+
+---
+
+## 💰 Cost Awareness
+
+This infrastructure includes:
+
+* NAT Gateway
+* Application Load Balancer
+* EC2 Instances
+
+Destroy resources after testing:
+
+```
+terraform destroy
+```
+
+---
+
+## 📚 Key Learnings
+
+* Production-grade VPC design
+* Multi-AZ architecture
+* ALB integration with ASG
+* ACM certificate management
+* Secure access using SSM
+* Remote state locking in Terraform
+
+---
+
+# 🔥 Now Important — Update ACM in Code
+
+Inside `acm.tf`, change:
+
+```
+domain_name = "example.com"
+subject_alternative_names = ["www.example.com"]
+```
+
+Instead of your real domain.
+
+```
+# Replace example.com with your own domain
+```
+
+ively.
