@@ -151,29 +151,32 @@ terraform {
 ```
 
 ---
+## 🚀 Deployment
 
-## 🚀 Deployment Steps
+### 1️⃣ Clone Repository
 
-### 1️⃣ Initialize Terraform
-
-```
+git clone https://github.com/koushikbijili/aws-production-infrastructure-terraform.git
+cd aws-production-infrastructure-terraform
 cd terraform
+
+### 2️⃣ Configure Remote Backend
+
+Update backend.tf with your S3 bucket and DynamoDB table.
+
+### 3️⃣ Initialize Terraform
+
 terraform init
-```
 
-### 2️⃣ Review Plan
+### 4️⃣ Review Execution Plan
 
-```
 terraform plan
-```
 
-### 3️⃣ Deploy Infrastructure
+### 5️⃣ Apply Infrastructure
 
-```
 terraform apply
-```
 
-### 4️⃣ Access Application
+
+### Access Application
 
 After deployment, retrieve the ALB DNS:
 
