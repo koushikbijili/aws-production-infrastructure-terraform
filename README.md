@@ -196,4 +196,3 @@ Instead of your real domain.
 # Replace example.com with your own domain
 ```
 
-ively.
