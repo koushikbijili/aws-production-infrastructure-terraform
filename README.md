@@ -107,6 +107,49 @@ Terraform state is stored remotely using:
 
 This prevents concurrent state corruption.
 
+## 🗂 Terraform Remote Backend Setup (Required)
+
+This project uses an S3 backend with DynamoDB state locking.
+
+Before running Terraform, create the following resources manually:
+
+### 1️⃣ S3 Bucket (Remote State Storage)
+
+* Region: `ap-south-1`
+* Versioning: Enabled
+* Block Public Access: Enabled
+
+Example name:
+
+```
+my-terraform-state-bucket
+```
+
+---
+
+### 2️⃣ DynamoDB Table (State Locking)
+
+* Table name: `terraform-locks`
+* Partition key: `LockID` (String)
+* Billing mode: On-demand
+
+---
+
+### 3️⃣ Update backend.tf
+
+Update the backend configuration in `backend.tf`:
+
+```
+terraform {
+  backend "s3" {
+    bucket         = "my-terraform-state-bucket"
+    key            = "production-architecture/terraform.tfstate"
+    region         = "ap-south-1"
+    dynamodb_table = "terraform-locks"
+    encrypt        = true
+  }
+}
+
 ---
 
 ## 🚀 Deployment Steps
