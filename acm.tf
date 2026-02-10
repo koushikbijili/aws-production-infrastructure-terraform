@@ -1,8 +1,9 @@
 resource "aws_acm_certificate" "cert" {
-  domain_name       = "koushikbijili.site"
+#replace with your domain name
+  domain_name       = "example.com"
   validation_method = "DNS"
 
-  subject_alternative_names = ["www.koushikbijili.site"]
+  subject_alternative_names = ["www.emample.com"]
 
   lifecycle {
     create_before_destroy = true
