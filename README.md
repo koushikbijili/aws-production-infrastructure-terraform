@@ -149,9 +149,17 @@ https://example.com
 ## 🧪 Testing
 
 * Confirm ALB listener on ports 80 and 443
+<img width="1912" height="793" alt="Screenshot 2026-02-10 153919" src="https://github.com/user-attachments/assets/2af64887-dcc8-459b-92a5-372a3670a567" />
+
 * Verify HTTP redirects to HTTPS
+<img width="804" height="310" alt="Screenshot 2026-02-10 125445" src="https://github.com/user-attachments/assets/4a0e8e9c-c155-4a84-95b9-7a8fc0c6c24b" />
+
 * Validate Target Group health status
+<img width="1443" height="557" alt="Screenshot 2026-02-10 153753" src="https://github.com/user-attachments/assets/7048da77-ce31-4b12-b241-acafb11114d0" />
+
 * Confirm EC2 access via SSM
+<img width="1918" height="762" alt="Screenshot 2026-02-10 154142" src="https://github.com/user-attachments/assets/fc2b7cf2-2d1e-4e41-9cc3-a2adfeb46d1a" />
+
 
 ---
 
