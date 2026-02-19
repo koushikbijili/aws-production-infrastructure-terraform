@@ -6,7 +6,7 @@ This project provisions a production-style AWS infrastructure using **Terraform*
 It deploys highly available, private EC2 instances behind an **Application Load Balancer (ALB)** with **HTTPS termination via AWS ACM**.
 
 The infrastructure is built with security, scalability, and automation principles in mind.
-<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/72e88014-f811-4207-aaae-ffb343b03712" />
+<img width="1300" height="1100" alt="aws-architecture-clean" src="https://github.com/user-attachments/assets/cc02123b-5178-4be5-93f2-d34a3a76fd9f" />
 
 ---
 
