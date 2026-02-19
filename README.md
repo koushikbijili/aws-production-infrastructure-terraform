@@ -7,6 +7,7 @@ It deploys highly available, private EC2 instances behind an **Application Load 
 
 The infrastructure is built with security, scalability, and automation principles in mind.
 
+
 <img width="1300" height="1100" alt="aws-architecture-clean" src="https://github.com/user-attachments/assets/cc02123b-5178-4be5-93f2-d34a3a76fd9f" />
 
 
