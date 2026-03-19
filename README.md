@@ -8,7 +8,8 @@ It deploys highly available, private EC2 instances behind an **Application Load 
 The infrastructure is built with security, scalability, and automation principles in mind.
 
 
-<img width="1300" height="1100" alt="aws-architecture-clean" src="https://github.com/user-attachments/assets/cc02123b-5178-4be5-93f2-d34a3a76fd9f" />
+<img width="1800" height="4022" alt="terraform-aws-clean" src="https://github.com/user-attachments/assets/6cc54b58-a78f-40ac-8ea9-d1bb6fde783a" />
+
 
 
 ---
@@ -28,22 +29,73 @@ The infrastructure includes:
 
 ---
 
-## 🌐 Traffic Flow
+## 🌐 End-to-End Flow (DevOps → HTTPS Live App)
 
 ```
-User
- ↓
-DNS (Cloudflare or Route53)
- ↓
-Application Load Balancer (HTTPS via ACM)
- ↓
-Target Group
- ↓
-Auto Scaling Group
- ↓
-Private EC2 Instances
- ↓
-Nginx Web Server
+[ DevOps Engineer ]
+          ↓
+[ Write Terraform Code ]
+          ↓
+[ terraform init ]
+          ↓
+[ terraform plan ]
+          ↓
+[ terraform apply ]
+          ↓
+[ Terraform calls AWS APIs ]
+          ↓
+---------------- INFRA CREATION ----------------
+          ↓
+[ VPC Created ]
+          ↓
+[ Public & Private Subnets ]
+          ↓
+[ Internet Gateway Attached ]
+          ↓
+[ NAT Gateway (Public Subnet) ]
+          ↓
+[ Route Tables Configured ]
+          ↓
+[ Security Groups Created ]
+          ↓
+[ ACM Certificate Requested ]
+          ↓
+[ ALB Created (Public Subnet) ]
+          ↓
+[ Target Group Created ]
+          ↓
+[ Launch Template Created ]
+          ↓
+[ Auto Scaling Group Created ]
+          ↓
+[ EC2 Instances Launched ]
+          ↓
+[ Nginx Installed (user_data) ]
+          ↓
+[ EC2 Registered to Target Group ]
+          ↓
+---------------- SSL + DNS ----------------
+          ↓
+[ ACM Certificate Validated (DNS) ]
+          ↓
+[ HTTPS Listener Enabled (443) ]
+          ↓
+[ DNS → ALB Mapping ]
+          ↓
+---------------- RUNTIME TRAFFIC ----------------
+          ↓
+[ User → https://domain.com ]
+          ↓
+[ Request hits ALB (SSL Termination) ]
+          ↓
+[ ALB → Target Group ]
+          ↓
+[ Traffic → EC2 (Private Subnet) ]
+          ↓
+[ Nginx Responds ]
+          ↓
+[ Response → User ]
+
 ```
 
 ---
